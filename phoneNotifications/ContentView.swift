@@ -1,5 +1,6 @@
 import SwiftUI
 import AVFoundation
+import GameplayKit
 
 
 struct ContentView: View {
@@ -8,9 +9,10 @@ struct ContentView: View {
     @State private var isShowingImage = false
     @State private var currentTime = Date()
     @State private var currentDate = Date()
-
-    @State private var audioPlayer: AVAudioPlayer?
-    let notificationSound = "notification_sound" // Name of the sound file
+    @State private var playSound = false
+    
+    //@State private var audioPlayer: AVAudioPlayer?
+    var audioPlayer: AVAudioPlayer?
     
     @State var images = ["message1", "message2", "message3", "message4"] //the array can be edited based on the button selected
     
@@ -54,14 +56,25 @@ struct ContentView: View {
             
             }
             
-            if showButtons {
+            if showButtons { //arranges the buttons
                 VStack{
+                    Button("Demo", action: {
+                        buttonTapped(10)
+                    })
+                    .padding()
+                    .foregroundColor(.red)
+                    .background(Color.black)
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                    .controlSize(.large)
+                    .padding()
+                    
                     Button("Case 5", action: {
                         buttonTapped(5)
                     })
                     .padding()
+                    .foregroundColor(.white)
                     .background(Color.black)
-                    .clipShape(RoundedRectangle(cornerRadius: 5))
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
                     .controlSize(.large)
                     .padding()
                     
@@ -69,8 +82,9 @@ struct ContentView: View {
                         buttonTapped(6)
                     })
                     .padding()
+                    .foregroundColor(.white)
                     .background(Color.black)
-                    .clipShape(RoundedRectangle(cornerRadius: 5))
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
                     .controlSize(.large)
                     .padding()
                     
@@ -78,8 +92,9 @@ struct ContentView: View {
                         buttonTapped(7)
                     })
                     .padding()
+                    .foregroundColor(.white)
                     .background(Color.black)
-                    .clipShape(RoundedRectangle(cornerRadius: 5))
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
                     .controlSize(.large)
                     .padding()
                     
@@ -87,11 +102,13 @@ struct ContentView: View {
                         buttonTapped(8)
                     })
                     .padding()
+                    .foregroundColor(.white)
                     .background(Color.black)
-                    .clipShape(RoundedRectangle(cornerRadius: 5))
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
                     .controlSize(.large)
                     .padding()
-                }
+                    
+                }.padding(.top, 100)
             } else{
                 Group{
                     if isShowingImage {
@@ -114,46 +131,52 @@ struct ContentView: View {
         
     }
         .onAppear { //at the start of the program, wait seconds to display first notification
-            audioPlayer?.play()
             DispatchQueue.main.asyncAfter(deadline: .now() + 15) {
                 self.showNextImage()
             }
         }
     }
     
-    init() {
-            // Load the sound file
-            if let soundURL = Bundle.main.url(forResource: "notification_sound", withExtension: "mp3") {
-                do {
-                    audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
-                    audioPlayer?.prepareToPlay()
-                    print("load worked!")
-                } catch {
-                    print("Error loading sound file: \(error.localizedDescription)")
+    init() { //intializes the sound files
+        if let soundURL = Bundle.main.url(forResource: "notification_sound", withExtension: "mp3") {
+            do {
+                audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
+                audioPlayer?.prepareToPlay()
+                //audioPlayer?.play()
+            } catch {
+                print("Error initializing AVAudioPlayer: \(error.localizedDescription)")
             }
+        } else {
+            print("Sound file not found.")
         }
     }
 
     func showNextImage() {
         isShowingImage = true
-        audioPlayer?.play() //play the sound everytime image is shown
+        
+        if playSound{ //to ensure that the sound doesnt play before the break loop
+            audioPlayer?.play() //play the sound everytime image is shown
+        }
+        
         currentIndex += 1
 
-        if currentIndex >= images.count {
+        if currentIndex < images.count{
+            let randomNum = Double(arc4random_uniform(11)) + 30// Generates a random number between 0 and 10 and adds to 30 [range: 30-40 seconds]
+            DispatchQueue.main.asyncAfter(deadline: .now() + randomNum) {
+                self.showNextImage()
+            }
+        }else{
             currentIndex = 0
-            isShowingImage = false //end program after showing all the images in the current array
-            showButtons = true
+            isShowingImage = false
+            playSound = false
         }
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 30) {
-            self.showNextImage()
-        }
+        
     }
     
     //keeps track of which button has been selected
     private func buttonTapped(_ buttonNumber: Int) {
         showButtons = false
-        selectedCase = buttonNumber
+        playSound = true //allow playing sound only when button is tapped
         
         switch buttonNumber{ //modifies the images array to have the right nottification based on the case button
             case 5:
@@ -165,19 +188,19 @@ struct ContentView: View {
             case 8:
                 images = ["HUD 13", "HUD 14", "HUD 15", "HUD 16"]
             default:
-                images = ["message4", "message4", "message4", "message4"]
+                images = ["message2", "message2", "message2", "message2"]
                
         }
         
     }
     
-    let currentTimeFormatter: DateFormatter = {
+    let currentTimeFormatter: DateFormatter = { //format time to current time
         let formatter = DateFormatter()
         formatter.dateFormat = "h:mm"
         return formatter
     }()
     
-    let currentDateFormatter: DateFormatter = {
+    let currentDateFormatter: DateFormatter = { //current date
         let formatter = DateFormatter()
         formatter.dateFormat = "MMMM dd"
         return formatter
@@ -191,7 +214,7 @@ struct ContentView: View {
 
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct ContentView_Previews: PreviewProvider { //used to preview content in xcode
     static var previews: some View {
         ContentView()
     }
