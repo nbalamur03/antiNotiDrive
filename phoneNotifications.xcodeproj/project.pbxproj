@@ -15,6 +15,7 @@
 		3D315D762A4CC113001135B7 /* phoneNotificationsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D315D752A4CC113001135B7 /* phoneNotificationsUITests.swift */; };
 		3D315D782A4CC113001135B7 /* phoneNotificationsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D315D772A4CC113001135B7 /* phoneNotificationsUITestsLaunchTests.swift */; };
 		3DC8CB602A701A3C00DC62D3 /* notification_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3DC8CB5F2A701A3C00DC62D3 /* notification_sound.mp3 */; };
+		3DC8CB6A2A73E5C000DC62D3 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DC8CB692A73E5C000DC62D3 /* Storyboard.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		3D315D752A4CC113001135B7 /* phoneNotificationsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = phoneNotificationsUITests.swift; sourceTree = "<group>"; };
 		3D315D772A4CC113001135B7 /* phoneNotificationsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = phoneNotificationsUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		3DC8CB5F2A701A3C00DC62D3 /* notification_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = notification_sound.mp3; sourceTree = "<group>"; };
+		3DC8CB692A73E5C000DC62D3 /* Storyboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 			children = (
 				3D315D592A4CC112001135B7 /* phoneNotificationsApp.swift */,
 				3D315D5B2A4CC112001135B7 /* ContentView.swift */,
+				3DC8CB692A73E5C000DC62D3 /* Storyboard.storyboard */,
 				3D315D5D2A4CC113001135B7 /* Assets.xcassets */,
 				3DC8CB5F2A701A3C00DC62D3 /* notification_sound.mp3 */,
 				3D315D5F2A4CC113001135B7 /* phoneNotifications.entitlements */,
@@ -237,6 +240,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D315D622A4CC113001135B7 /* Preview Assets.xcassets in Resources */,
+				3DC8CB6A2A73E5C000DC62D3 /* Storyboard.storyboard in Resources */,
 				3D315D5E2A4CC113001135B7 /* Assets.xcassets in Resources */,
 				3DC8CB602A701A3C00DC62D3 /* notification_sound.mp3 in Resources */,
 			);

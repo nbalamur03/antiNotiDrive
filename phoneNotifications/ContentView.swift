@@ -33,7 +33,8 @@ struct ContentView: View {
                 Text(currentDateFormatter.string(from: currentDate))
                     .foregroundColor(.white)
                     .font(.title)
-                    .position(x: 290, y: 50)
+                    //.position(x: 270, y: 50)
+                    .padding(.top, 30)
                 
                 Text(currentTimeFormatter.string(from: currentTime))
                     .foregroundColor(.white)
@@ -42,7 +43,7 @@ struct ContentView: View {
                         .weight(.heavy)
                     )
                     .bold()
-                    .position(x: 295, y: -130)
+                    //.position(x: 270, y: -130)
                 
                 Text(" ")
                     .position(x: 0, y: 0)
@@ -116,7 +117,7 @@ struct ContentView: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 370, height: 70)
-                            .position(x: 290, y: 300)
+                            .position(x: 270, y: 300)
                             
                             .onAppear {
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
