@@ -117,7 +117,7 @@ struct ContentView: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 370, height: 70)
-                            .position(x: 270, y: 300)
+                            .position(x: 275, y: 300)
                             
                             .onAppear {
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
